@@ -11,6 +11,11 @@ const sellerSchema = new mongoose.Schema(
       enum: ["active", "inactive"],
       default: "inactive",
     },
+    category: {
+      type: String,
+      enum: ["Freelancers", "Items", "Laborers", "Services", "Jobs"],
+      required: true,
+    },
   },
   { timestamps: true }
 );
