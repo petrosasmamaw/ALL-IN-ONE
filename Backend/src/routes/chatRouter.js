@@ -1,5 +1,5 @@
 import express from 'express';
-import { getChatBySellerIdAndClientId, getChatsbyItemId, createChat,deleteChat } from '../controllers/chatController';
+import { getChatBySellerIdAndClientId, getChatsbyItemId, createChat,deleteChat } from '../controllers/chatController.js';
 
 const router = express.Router();
 
