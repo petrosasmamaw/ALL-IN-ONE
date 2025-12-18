@@ -81,6 +81,15 @@ body{
 	color: #ffdddd;
 }
 
+/* Navbar authenticated user display */
+.nav-user{ display:flex; align-items:center; gap:10px }
+.nav-user-avatar{ padding:6px 12px; border-radius:10px; background: rgba(255,255,255,0.04); color:#fff; font-weight:600; max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap }
+.nav-loading{ opacity:0.85; padding:8px 10px }
+
+/* When unauthenticated, push actions to center-right and remove nav-links spacing */
+.app-navbar.unauthenticated .nav-links{ display:none }
+.app-navbar.unauthenticated .nav-actions{ margin-left:auto }
+
 /* responsive */
 @media (max-width:720px){
 	.nav-links{ display:none }
