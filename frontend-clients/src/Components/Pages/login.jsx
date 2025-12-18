@@ -14,10 +14,15 @@ const Login = () => {
 		e.preventDefault()
 		if (!email || !password) return
 		dispatch(loginUser({ email, password }))
+			.unwrap()
+			.then((res) => {
+				if (res?.user) navigate('/shop')
+			})
+			.catch(() => {})
 	}
 
 	useEffect(() => {
-		if (user) navigate('/profile')
+		if (user) navigate('/shop')
 		return () => { dispatch(clearAuthError()) }
 	}, [user, navigate, dispatch])
 

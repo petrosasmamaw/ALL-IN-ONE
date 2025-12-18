@@ -1,24 +1,42 @@
-import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import Navbar from './Components/Pages/navbar'
-import AllChat from './Components/Pages/allChat'
-import ItemChat from './Components/Pages/itemChat'
-import Login from './Components/Pages/login'
-import Register from './Components/Pages/register'
-import Profile from './Components/Pages/profile'
-import Shop from './Components/Pages/shop'
-import ShopDetail from './Components/Pages/shopDetail'
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import Navbar from './Components/Pages/navbar';
+import AllChat from './Components/Pages/allChat';
+import ItemChat from './Components/Pages/itemChat';
+import Login from './Components/Pages/login';
+import Register from './Components/Pages/register';
+import Profile from './Components/Pages/profile';
+import Shop from './Components/Pages/shop';
+import ShopDetail from './Components/Pages/shopDetail';
+import { fetchSession } from './Components/Slice/authSlice';
 
-const App = () => {
-    const dispatch = useDispatch()
-    const { user, status } = useSelector((s) => s.auth)
-    // normalize user object: some responses may nest user under `user` key
-    const currentUser = user?.user || user || null
-    const userId = currentUser?.id || null
-    const isAuthenticated = !!currentUser && status === 'succeeded'
+const AppWrapper = () => {
+  const dispatch = useDispatch();
+  const { user, status } = useSelector(s => s.auth);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    // fetch session on mount; only auto-navigate if user is on an auth route or root
+    (async () => {
+      const res = await dispatch(fetchSession());
+      const isAuthRoute = ['/','/login','/register'].includes(location.pathname);
+      if (isAuthRoute) {
+        if (!res.payload?.user) navigate('/login');
+        else navigate('/shop');
+      }
+    })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
+
+  const currentUser = user?.user || user || null;
+  const userId = currentUser?.id || null;
+  const isAuthenticated = !!currentUser && status === 'succeeded';
+
   return (
-    <BrowserRouter>
+    <>
       <Navbar user={currentUser} userId={userId} status={status} />
       <div style={{ padding: 12 }}>
         <Routes>
@@ -40,8 +58,14 @@ const App = () => {
           )}
         </Routes>
       </div>
-    </BrowserRouter>
-  )
-}
+    </>
+  );
+};
 
-export default App
+const App = () => (
+  <BrowserRouter>
+    <AppWrapper />
+  </BrowserRouter>
+);
+
+export default App;
