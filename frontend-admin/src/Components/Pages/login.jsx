@@ -3,41 +3,47 @@ import { useNavigate, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginUser, clearAuthError } from '../Slice/authSlice'
 
-const AdminLogin = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const { user, status, error } = useSelector((s) => s.auth)
+const Login = () => {
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
+	const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const { user, status, error } = useSelector((state) => state.auth)
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if (!email || !password) return
-    dispatch(loginUser({ email, password }))
-  }
+	const handleSubmit = (e) => {
+		e.preventDefault()
+		if (!email || !password) return
+		dispatch(loginUser({ email, password }))
+			.unwrap()
+			.then((res) => {
+				if (res?.user) navigate('/shop')
+			})
+			.catch(() => {})
+	}
 
-  useEffect(() => {
-    if (user) navigate('/dashboard')
-    return () => { dispatch(clearAuthError()) }
-  }, [user, navigate, dispatch])
+	useEffect(() => {
+		if (user) navigate('/shop')
+		return () => { dispatch(clearAuthError()) }
+	}, [user, navigate, dispatch])
 
-  return (
-    <div className="auth-page admin">
-      <div className="auth-card">
-        <h2 className="auth-title">Admin Sign in</h2>
-        <p className="auth-sub">Manage your store and sellers</p>
-        {error && <div className="alert alert-error">{error}</div>}
-        <form className="auth-form" onSubmit={handleSubmit}>
-          <input className="auth-input" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-          <input className="auth-input" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          <button className="btn primary" type="submit" disabled={status === 'loading'}>{status === 'loading' ? 'Signing in...' : 'Sign In'}</button>
-        </form>
-        <div className="auth-footer">
-          <p>Not an admin? <Link to="/register">Create admin</Link></p>
-        </div>
-      </div>
-    </div>
-  )
+	return (
+		<div className="auth-page">
+			<div className="auth-card">
+				<h2 className="auth-title">Welcome back</h2>
+				<p className="auth-sub">Sign in to continue to your account</p>
+				{error && <div className="alert alert-error">{error}</div>}
+				<form className="auth-form" onSubmit={handleSubmit}>
+					<input className="auth-input" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+					<input className="auth-input" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+					<button className="btn primary" type="submit" disabled={status === 'loading'}>{status === 'loading' ? 'Signing in...' : 'Sign In'}</button>
+				</form>
+				<div className="auth-footer">
+					<p>Don't have an account? <Link to="/register">Register</Link></p>
+				</div>
+			</div>
+		</div>
+	)
 }
 
-export default AdminLogin
+export default Login
+
