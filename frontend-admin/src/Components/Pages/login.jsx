@@ -16,7 +16,7 @@ const Login = () => {
 		dispatch(loginUser({ email, password }))
 			.unwrap()
 			.then((res) => {
-				if (res?.user) navigate('/shop')
+				if (res?.user) navigate('/dashboard')
 			})
 			.catch(() => {})
 	}

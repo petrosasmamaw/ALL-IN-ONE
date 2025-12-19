@@ -23,9 +23,9 @@ const Navbar = ({ user, userId, status }) => {
       <nav className="nav-links">
         {isAuthenticated ? (
           <>
-            <Link to="/shop" className="nav-btn">Shop</Link>
-            <Link to="/profile" className="nav-btn">Profile</Link>
-            <Link to="/chats" className="nav-btn">Chats</Link>
+            <Link to="/" className="nav-btn">Dashboard</Link>
+            <Link to="/clients" className="nav-btn">Clients</Link>
+            <Link to="/sellers" className="nav-btn">Sellers</Link>
           </>
         ) : null}
       </nav>

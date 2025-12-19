@@ -3,13 +3,11 @@ import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import Navbar from './Components/Pages/navbar';
-import AllChat from './Components/Pages/allChat';
-import ItemChat from './Components/Pages/itemChat';
 import Login from './Components/Pages/login';
 import Register from './Components/Pages/register';
-import Profile from './Components/Pages/profile';
-import Shop from './Components/Pages/shop';
-import ShopDetail from './Components/Pages/shopDetail';
+import Clients from './Components/Pages/clients';
+import Dashboard from './Components/Pages/dashboard';
+import Sellers from './Components/Pages/sellers';
 import { fetchSession } from './Components/Slice/authSlice';
 
 const AppWrapper = () => {
@@ -25,7 +23,7 @@ const AppWrapper = () => {
       const isAuthRoute = ['/','/login','/register'].includes(location.pathname);
       if (isAuthRoute) {
         if (!res.payload?.user) navigate('/login');
-        else navigate('/shop');
+        else navigate('/dashboard');
       }
     })();
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -42,12 +40,10 @@ const AppWrapper = () => {
         <Routes>
           {isAuthenticated ? (
             <>
-              <Route path="/" element={<Shop user={currentUser} userId={userId} />} />
-              <Route path="/shop" element={<Shop user={currentUser} userId={userId} />} />
-              <Route path="/shop/:id" element={<ShopDetail user={currentUser} userId={userId} />} />
-              <Route path="/chats" element={<AllChat user={currentUser} userId={userId} />} />
-              <Route path="/chats/:id" element={<ItemChat user={currentUser} userId={userId} />} />
-              <Route path="/profile" element={<Profile user={currentUser} userId={userId} />} />
+              <Route path="/" element={<Dashboard user={currentUser} userId={userId} />} />
+              <Route path="/dashboard" element={<Dashboard user={currentUser} userId={userId} />} />
+              <Route path="/clients" element={<Clients user={currentUser} userId={userId} />} />
+              <Route path="/sellers" element={<Sellers user={currentUser} userId={userId} />} />
             </>
           ) : (
             <>
