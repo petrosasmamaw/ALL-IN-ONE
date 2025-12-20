@@ -141,3 +141,62 @@ body{
 	.auth-card{ padding:18px; border-radius:12px }
 }
 
+/* Seller profile — fresh, modern card */
+.seller-profile-container{
+	max-width:820px;
+	margin:32px auto;
+	padding:28px;
+	background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+	border:1px solid rgba(255,255,255,0.04);
+	border-radius:18px;
+	box-shadow: 0 20px 50px rgba(2,6,23,0.7);
+	position:relative;
+	overflow:hidden;
+}
+.seller-profile-container:before{
+	content:"";
+	position:absolute;
+	right:-120px;top:-60px;width:320px;height:320px;
+	background: radial-gradient(circle at 30% 30%, rgba(124,58,237,0.06), transparent 25%), radial-gradient(circle at 70% 70%, rgba(6,182,212,0.04), transparent 25%);
+	transform: rotate(12deg);
+	opacity:0.9;pointer-events:none;
+}
+.seller-profile-title{
+	position:relative;z-index:1;
+	margin:0 0 18px 0;
+	color:#fff;
+	font-size:1.6rem;
+	font-weight:800;
+	letter-spacing:0.2px;
+}
+.seller-profile-image{
+	width:140px;height:140px;object-fit:cover;border-radius:50%;
+	display:block;margin:8px auto 20px;border:4px solid rgba(255,255,255,0.04);
+	box-shadow: 0 8px 30px rgba(2,6,23,0.6), 0 0 0 6px rgba(124,58,237,0.04) inset;
+	background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
+}
+.seller-profile-form{
+	display:grid;grid-template-columns:repeat(2,1fr);gap:14px;align-items:start;position:relative;z-index:1;
+}
+.seller-profile-form select,
+.seller-profile-form input[type="file"],
+.seller-profile-form .seller-profile-btn{ grid-column: 1 / -1 }
+.seller-profile-input{
+	width:100%;padding:12px 14px;border-radius:12px;background: rgba(255,255,255,0.03);
+	border:1px solid rgba(255,255,255,0.04);color:var(--muted);outline:none;transition: all 180ms cubic-bezier(.2,.9,.2,1);
+}
+.seller-profile-input:focus{ transform: translateY(-3px); box-shadow: 0 10px 30px rgba(7,10,40,0.6); border-color: rgba(124,58,237,0.45); }
+.seller-profile-btn{
+	display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:12px 16px;border-radius:12px;border:none;cursor:pointer;
+	background: linear-gradient(90deg, var(--accent1), var(--accent2));color:#fff;font-weight:800;letter-spacing:0.4px;transition: transform 160ms ease, box-shadow 160ms ease;
+}
+.seller-profile-btn:hover{ transform: translateY(-3px); box-shadow: 0 14px 40px rgba(96,165,250,0.08) }
+.seller-profile-btn:disabled{ opacity:0.6; cursor:not-allowed; transform:none; box-shadow:none }
+
+@media (max-width:880px){
+	.seller-profile-form{ grid-template-columns:1fr }
+	.seller-profile-image{ width:120px;height:120px }
+	.seller-profile-title{ font-size:1.35rem }
+}
+
+
