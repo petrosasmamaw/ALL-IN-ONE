@@ -141,3 +141,28 @@ body{
 	.auth-card{ padding:18px; border-radius:12px }
 }
 
+/* Clients table */
+.clients-card{
+	background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+	border-radius:12px;
+	padding:18px;
+	margin-top:18px;
+	border:1px solid rgba(255,255,255,0.03);
+}
+.table-wrap{ overflow:auto; margin-top:12px }
+.clients-table{ width:100%; border-collapse:collapse; min-width:720px }
+.clients-table th, .clients-table td{ text-align:left; padding:12px 10px; border-bottom:1px solid rgba(255,255,255,0.02); color:var(--muted) }
+.clients-table thead th{ color:#fff; font-weight:600; background: rgba(255,255,255,0.02); position:sticky; top:0 }
+.status-btn{ padding:6px 10px; border-radius:8px; border:none; cursor:pointer; font-weight:600 }
+.status-btn.active{ background: linear-gradient(90deg, var(--accent1), var(--accent2)); color:#fff }
+.status-btn.inactive{ background: rgba(255,255,255,0.02); color:var(--muted); border:1px solid rgba(255,255,255,0.03) }
+.delete-btn{ padding:6px 10px; border-radius:8px; background: transparent; color:#ff9b9b; border:1px solid rgba(255,80,80,0.08); cursor:pointer; font-weight:700 }
+
+@media (max-width:760px){
+	.clients-table{ min-width:600px }
+}
+
+/* Avatar */
+.client-avatar{ width:40px; height:40px; border-radius:50%; object-fit:cover; display:inline-block }
+.client-avatar.placeholder{ display:flex; align-items:center; justify-content:center; background: rgba(255,255,255,0.03); color:#fff; font-weight:700 }
+

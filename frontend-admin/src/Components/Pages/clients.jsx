@@ -1,25 +1,104 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchAllClients,
+  updateClient,
+  deleteClient,
+} from "../Slice/clientSlice";
 
 const Clients = () => {
-	const shops = [
-		{ id: 'a1', name: 'client A' },
-		{ id: 'b2', name: 'client B' },
-	]
+  const dispatch = useDispatch();
+  const clients = useSelector((state) => state.clients.clients || []);
+  const status = useSelector((state) => state.clients.status);
 
-	return (
-		<div>
-			<h2>clients</h2>
-			<ul>
-				{shops.map((s) => (
-					<li key={s.id}>
-						<Link to={`/shop/${s.id}`}>{s.name}</Link>
-					</li>
-				))}
-			</ul>
+  useEffect(() => {
+	dispatch(fetchAllClients());
+  }, [dispatch]);
+
+  const toggleStatus = (c) => {
+	const newStatus = c.status === "active" ? "inactive" : "active";
+	dispatch(
+	  updateClient({
+		id: c._id,
+		clientData: {
+		  name: c.name,
+		  userId: c.userId,
+		  phoneNo: c.phoneNo,
+		  status: newStatus,
+		},
+	  })
+	);
+  };
+
+  const handleDelete = (id) => {
+	if (window.confirm("Are you sure you want to delete this client?")) {
+	  dispatch(deleteClient(id));
+	}
+  };
+
+  return (
+	<div className="container">
+	  <div className="clients-card">
+		<h2>Clients</h2>
+
+		{status === "loading" && <div className="nav-loading">Loading...</div>}
+
+		<div className="table-wrap">
+					<table className="clients-table">
+						<thead>
+							<tr>
+								<th>Avatar</th>
+								<th>Name</th>
+								<th>Phone</th>
+								<th>Status</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+			  {clients.length === 0 && (
+				<tr>
+				  <td colSpan="4" style={{ textAlign: "center" }}>
+					No clients found
+				  </td>
+				</tr>
+			  )}
+
+							{clients.map((c) => (
+								<tr key={c._id}>
+									<td>
+										{c.image ? (
+											<img src={c.image} alt={c.name} className="client-avatar" />
+										) : (
+											<div className="client-avatar placeholder">
+												{c.name ? c.name.charAt(0).toUpperCase() : "?"}
+											</div>
+										)}
+									</td>
+									<td>{c.name}</td>
+									<td>{c.phoneNo}</td>
+									<td>
+										<button
+											className={
+												"status-btn " + (c.status === "active" ? "active" : "inactive")
+											}
+											onClick={() => toggleStatus(c)}
+										>
+											{c.status}
+										</button>
+									</td>
+									<td>
+										<button className="delete-btn" onClick={() => handleDelete(c._id)}>
+											Delete
+										</button>
+									</td>
+								</tr>
+							))}
+			</tbody>
+		  </table>
 		</div>
-	)
-}
+	  </div>
+	</div>
+  );
+};
 
-export default Clients
-
+export default Clients;

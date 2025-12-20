@@ -29,6 +29,11 @@ export const createClient = createAsyncThunk(
     formData.append("userId", clientData.userId);
     formData.append("phoneNo", clientData.phoneNo);
 
+    // include status if provided
+    if (clientData.status) {
+      formData.append("status", clientData.status);
+    }
+
     if (clientData.image) {
       formData.append("image", clientData.image);
     }
@@ -45,6 +50,11 @@ export const updateClient = createAsyncThunk(
     formData.append("name", clientData.name);
     formData.append("userId", clientData.userId);
     formData.append("phoneNo", clientData.phoneNo);
+
+    // include status when updating
+    if (clientData.status) {
+      formData.append("status", clientData.status);
+    }
 
     if (clientData.image) {
       formData.append("image", clientData.image);
