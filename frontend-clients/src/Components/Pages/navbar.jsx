@@ -17,7 +17,7 @@ const Navbar = ({ user, userId, status }) => {
   return (
     <header className="app-navbar">
       <div className="nav-brand">
-        <Link to="/">MyMarket</Link>
+        <Link to="/">MyMarket-Client</Link>
       </div>
 
       <nav className="nav-links">
