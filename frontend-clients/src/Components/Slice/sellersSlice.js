@@ -3,6 +3,14 @@ import axios from "axios";
 
 const SELLERAPI_URL = "http://localhost:5000/api/sellers/";
 
+export const fetchAllSellers = createAsyncThunk(
+  "sellers/fetchAllSellers",
+  async () => {
+    const response = await axios.get(SELLERAPI_URL);
+    return response.data;
+  }
+);
+
 export const fetchSellerByUserId = createAsyncThunk(
   "sellers/fetchSellerByUserId",
   async (userId) => {
@@ -50,6 +58,7 @@ export const updateSeller = createAsyncThunk(
 const sellersSlice = createSlice({
   name: "sellers",
   initialState: {
+    sellers: [],
     seller: null,
     status: "idle",
     error: null,
@@ -58,6 +67,18 @@ const sellersSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
+      .addCase(fetchAllSellers.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchAllSellers.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.sellers = action.payload;
+      })
+      .addCase(fetchAllSellers.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+
       .addCase(fetchSellerByUserId.pending, (state) => {
         state.status = "loading";
       })
