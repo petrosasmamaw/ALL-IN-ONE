@@ -142,6 +142,21 @@ body{
 	.auth-card{ padding:18px; border-radius:12px }
 }
 
+/* Shop detail items */
+.shop-detail-grid{ display:grid; gap:16px; grid-template-columns: repeat(auto-fill,minmax(240px,1fr)); margin-top:12px }
+.shop-item-card{ display:flex; gap:12px; align-items:flex-start; padding:12px; border-radius:12px; background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02)); border:1px solid rgba(255,255,255,0.03) }
+.shop-item-thumb{ width:96px; height:96px; flex:0 0 96px }
+.shop-item-thumb img{ width:100%; height:100%; object-fit:cover; border-radius:8px }
+.shop-item-placeholder{ width:96px; height:96px; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.02); border-radius:8px; font-weight:800 }
+.shop-item-title{ color:#fff; font-weight:800; font-size:1.05rem }
+.shop-item-desc{ color:var(--muted); margin-top:6px; font-size:0.95rem; line-height:1.3; max-height:3.9em; overflow:hidden }
+.shop-item-meta{ color:var(--muted); margin-top:6px }
+
+@media (min-width:1000px){
+  .shop-detail-grid{ grid-template-columns: repeat(3, 1fr) }
+}
+
+
 /* Profile page */
 .profile-container{
 	max-width:720px;
