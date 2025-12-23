@@ -1,19 +1,19 @@
 import express from "express";
 import upload from "../middlewares/uploadImage.js";
 import {
-  getAllSeller,
-  createSeller,
-  updateSeller,
-  deleteSeller,
-  getSellerByUserId,
-} from "../controllers/sellerController.js";
+  getAllItems,
+  getItemsBySellerId,
+  createItem,
+  updateItem,
+  deleteItem,
+} from "../controllers/itemController.js";
 
 const router = express.Router();
 
-router.get("/", getAllSeller);
-router.get("/user/:userId", getSellerByUserId);
-router.post("/", upload.single("image"), createSeller);
-router.put("/:id", upload.single("image"), updateSeller);
-router.delete("/:id", deleteSeller);
+router.get("/", getAllItems);
+router.get("/seller/:sellerId", getItemsBySellerId);
+router.post("/", upload.single("image"), createItem);
+router.put("/:id", upload.single("image"), updateItem);
+router.delete("/:id", deleteItem);
 
 export default router;

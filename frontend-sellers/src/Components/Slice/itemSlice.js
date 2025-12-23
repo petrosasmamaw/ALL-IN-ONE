@@ -2,98 +2,128 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const ITEMAPI_URL = 'http://localhost:5000/api/items/';
-
 export const fetchAllItems = createAsyncThunk(
   'items/fetchAllItems',
-  async () => {
-    const response = await axios.get(ITEMAPI_URL);
-    return response.data;
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(ITEMAPI_URL);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
   }
 );
 
+// Fetch items by seller ID
 export const fetchItemsBySellerId = createAsyncThunk(
   'items/fetchItemsBySellerId',
-  async (sellerId) => {
-    const response = await axios.get(`${ITEMAPI_URL}seller/${sellerId}`);
-    return response.data;
+  async (sellerId, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${ITEMAPI_URL}seller/${sellerId}`);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
   }
 );
 
+// Fetch single item by ID
 export const fetchItemById = createAsyncThunk(
   'items/fetchItemById',
-  async (id) => {
-    const response = await axios.get(`${ITEMAPI_URL}${id}`);
-    return response.data;
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${ITEMAPI_URL}${id}`);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
   }
 );
 
+// Create item
 export const createItem = createAsyncThunk(
   'items/createItem',
-  async (itemData) => {
-    let dataToSend = itemData;
-
-    if (itemData.image instanceof File) {
+  async (itemData, { rejectWithValue }) => {
+    try {
       const formData = new FormData();
       formData.append('name', itemData.name);
       formData.append('sellerId', itemData.sellerId);
       formData.append('category', itemData.category);
       formData.append('description', itemData.description);
-      formData.append('price', itemData.price);
-      formData.append('status', itemData.status);
-      formData.append('image', itemData.image);
+      formData.append('price', Number(itemData.price)); // ✅ ensure number
 
-      dataToSend = formData;
+      if (itemData.image) {
+        formData.append('image', itemData.image);
+      }
+
+      const response = await axios.post(ITEMAPI_URL, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
     }
-
-    const response = await axios.post(ITEMAPI_URL, dataToSend);
-    return response.data;
   }
 );
 
+// Update item
 export const updateItem = createAsyncThunk(
   'items/updateItem',
-  async ({ id, itemData }) => {
-    let dataToSend = itemData;
-
-    if (itemData.image instanceof File) {
+  async ({ id, itemData }, { rejectWithValue }) => {
+    try {
       const formData = new FormData();
       formData.append('name', itemData.name);
       formData.append('sellerId', itemData.sellerId);
       formData.append('category', itemData.category);
       formData.append('description', itemData.description);
-      formData.append('price', itemData.price);
-      formData.append('status', itemData.status);
-      formData.append('image', itemData.image);
+      formData.append('price', Number(itemData.price)); // ✅ ensure number
 
-      dataToSend = formData;
+      if (itemData.image) {
+        formData.append('image', itemData.image);
+      }
+
+      const response = await axios.put(`${ITEMAPI_URL}${id}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
     }
-
-    const response = await axios.put(`${ITEMAPI_URL}${id}`, dataToSend);
-    return response.data;
   }
 );
 
+// Delete item
 export const deleteItem = createAsyncThunk(
   'items/deleteItem',
-  async (id) => {
-    await axios.delete(`${ITEMAPI_URL}${id}`);
-    return id;
+  async (id, { rejectWithValue }) => {
+    try {
+      await axios.delete(`${ITEMAPI_URL}${id}`);
+      return id;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
   }
 );
 
+/* ============================
+   SLICE
+============================ */
 
 const itemsSlice = createSlice({
   name: 'items',
   initialState: {
     items: [],
-    item: null,        
+    item: null,
     status: 'idle',
     error: null,
   },
-
+  reducers: {},
   extraReducers: (builder) => {
     builder
 
+      /* ===== FETCH ALL ITEMS ===== */
       .addCase(fetchAllItems.pending, (state) => {
         state.status = 'loading';
       })
@@ -103,9 +133,10 @@ const itemsSlice = createSlice({
       })
       .addCase(fetchAllItems.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.error.message;
+        state.error = action.payload;
       })
 
+      /* ===== FETCH ITEMS BY SELLER ===== */
       .addCase(fetchItemsBySellerId.pending, (state) => {
         state.status = 'loading';
       })
@@ -115,9 +146,10 @@ const itemsSlice = createSlice({
       })
       .addCase(fetchItemsBySellerId.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.error.message;
+        state.error = action.payload;
       })
 
+      /* ===== FETCH SINGLE ITEM ===== */
       .addCase(fetchItemById.pending, (state) => {
         state.status = 'loading';
       })
@@ -127,9 +159,10 @@ const itemsSlice = createSlice({
       })
       .addCase(fetchItemById.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.error.message;
+        state.error = action.payload;
       })
 
+      /* ===== CREATE ITEM ===== */
       .addCase(createItem.pending, (state) => {
         state.status = 'loading';
       })
@@ -139,9 +172,10 @@ const itemsSlice = createSlice({
       })
       .addCase(createItem.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.error.message;
+        state.error = action.payload;
       })
-      
+
+      /* ===== UPDATE ITEM ===== */
       .addCase(updateItem.pending, (state) => {
         state.status = 'loading';
       })
@@ -153,15 +187,13 @@ const itemsSlice = createSlice({
         if (index !== -1) {
           state.items[index] = action.payload;
         }
-        if (state.item?._id === action.payload._id) {
-          state.item = action.payload;
-        }
       })
       .addCase(updateItem.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.error.message;
+        state.error = action.payload;
       })
 
+      /* ===== DELETE ITEM ===== */
       .addCase(deleteItem.pending, (state) => {
         state.status = 'loading';
       })
@@ -170,13 +202,10 @@ const itemsSlice = createSlice({
         state.items = state.items.filter(
           (item) => item._id !== action.payload
         );
-        if (state.item?._id === action.payload) {
-          state.item = null;
-        }
       })
       .addCase(deleteItem.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.error.message;
+        state.error = action.payload;
       });
   },
 });

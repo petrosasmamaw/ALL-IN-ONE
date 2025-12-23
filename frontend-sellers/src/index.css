@@ -199,4 +199,29 @@ body{
 	.seller-profile-title{ font-size:1.35rem }
 }
 
+/* Items grid */
+.items-grid{ display:grid; gap:16px; grid-template-columns: repeat(auto-fill,minmax(260px,1fr)); margin-top:12px }
+.item-card{ display:flex; gap:12px; align-items:flex-start; padding:12px; border-radius:12px; background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02)); border:1px solid rgba(255,255,255,0.03) }
+.item-thumb{ width:96px; height:96px; flex:0 0 96px }
+.item-thumb img{ width:100%; height:100%; object-fit:cover; border-radius:8px }
+.item-placeholder{ width:96px; height:96px; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.02); border-radius:8px; font-weight:800 }
+.item-title{ color:#fff; font-weight:800; font-size:1.05rem }
+.item-desc{ color:var(--muted); margin-top:6px; font-size:0.95rem; line-height:1.3; max-height:3.9em; overflow:hidden }
+.item-meta{ color:var(--muted); margin-top:6px }
+.item-actions{ display:flex; gap:8px; margin-top:10px }
+
+@media (min-width:1000px){
+  .items-grid{ grid-template-columns: repeat(3, 1fr) }
+}
+
+
+/* Create item tweaks */
+.seller-profile-form input[type="file"] { padding:10px }
+.seller-profile-form textarea { resize:vertical }
+.seller-profile-container img[alt="preview"]{ margin-top:8px; border-radius:8px; display:block }
+
+@media (min-width:1200px){
+  .container{ max-width:1400px }
+}
+
 
