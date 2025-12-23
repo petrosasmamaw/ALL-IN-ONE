@@ -29,7 +29,7 @@ const Login = () => {
 	return (
 		<div className="auth-page">
 			<div className="auth-card">
-				<h2 className="auth-title">Welcome back</h2>
+				<h2 className="auth-title">Welcome back Client</h2>
 				<p className="auth-sub">Sign in to continue to your account</p>
 				{error && <div className="alert alert-error">{error}</div>}
 				<form className="auth-form" onSubmit={handleSubmit}>
