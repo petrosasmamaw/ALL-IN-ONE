@@ -19,6 +19,14 @@ export const fetchSellerByUserId = createAsyncThunk(
   }
 );
 
+export const fetchSellerById = createAsyncThunk(
+  "sellers/fetchSellerById",
+  async (id) => {
+    const response = await axios.get(`${SELLERAPI_URL}${id}`);
+    return response.data;
+  }
+);
+
 export const createSeller = createAsyncThunk(
   "sellers/createSeller",
   async (sellerData) => {
@@ -86,6 +94,9 @@ const sellersSlice = createSlice({
         state.status = "succeeded";
         state.seller = action.payload;
       })
+      .addCase(fetchSellerById.pending, (state) => { state.status = "loading" })
+      .addCase(fetchSellerById.fulfilled, (state, action) => { state.status = "succeeded"; state.seller = action.payload })
+      .addCase(fetchSellerById.rejected, (state) => { state.status = "failed"; state.seller = null })
       .addCase(fetchSellerByUserId.rejected, (state) => {
         state.status = "failed";
         state.seller = null;

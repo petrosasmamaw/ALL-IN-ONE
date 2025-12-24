@@ -9,5 +9,6 @@ router.post('/', upload.single('image'), createSeller);
 router.put('/:id', upload.single('image'), updateSeller);
 router.delete('/:id', deleteSeller);
 router.get('/user/:userId', getSellerByUserId);
+router.get('/:id', getSellerById);
 
 export default router;

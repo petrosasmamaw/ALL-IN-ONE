@@ -22,6 +22,17 @@ export const getSellerByUserId = async (req, res) => {
   }
 };
 
+export const getSellerById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const seller = await Seller.findById(id);
+    if (!seller) return res.status(404).json({ message: 'Seller not found' });
+    res.status(200).json(seller);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export const createSeller = async (req, res) => {
   try {
     const { name, userId, phoneNo, category } = req.body;
