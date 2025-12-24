@@ -1,6 +1,6 @@
 import express from 'express';
 import upload from '../middlewares/uploadImage.js';
-import { getAllSeller, createSeller, updateSeller,deleteSeller,getSellerByUserId } from '../controllers/sellerController.js';
+import { getAllSeller, createSeller, updateSeller,deleteSeller,getSellerByUserId,getSellerById } from '../controllers/sellerController.js';
 
 const router = express.Router();
 
