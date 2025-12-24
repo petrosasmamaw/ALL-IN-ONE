@@ -1,4 +1,7 @@
 import Ids from "../model/Ids.js";
+import Seller from "../model/Seller.js";
+import Client from "../model/Client.js";
+import mongoose from "mongoose";
 
 export const getAllIds = async (req, res) => {
     try {
@@ -9,9 +12,24 @@ export const getAllIds = async (req, res) => {
     }
 };
 export const createIds = async (req, res) => {
-    const { itemId, sellerId, clientId } = req.body;
-    const newIds = new Ids({ itemId, sellerId, clientId });
     try {
+        let { itemId, sellerId, clientId } = req.body;
+
+        // resolve sellerId if a userId string is supplied
+        if (!mongoose.Types.ObjectId.isValid(sellerId)) {
+            const seller = await Seller.findOne({ userId: sellerId });
+            if (!seller) return res.status(400).json({ message: "Seller not found" });
+            sellerId = seller._id;
+        }
+
+        // resolve clientId if a userId string is supplied
+        if (!mongoose.Types.ObjectId.isValid(clientId)) {
+            const client = await Client.findOne({ userId: clientId });
+            if (!client) return res.status(400).json({ message: "Client not found" });
+            clientId = client._id;
+        }
+
+        const newIds = new Ids({ itemId, sellerId, clientId });
         await newIds.save();
         res.status(201).json(newIds);
     } catch (error) {
