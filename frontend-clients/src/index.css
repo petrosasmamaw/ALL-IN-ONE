@@ -200,6 +200,31 @@ input[type="file"], .seller-profile-input[type="file"] {
 /* Small input helpers */
 .input-small { padding: 8px 10px; font-size: 0.95rem; }
 
+/* Centered profile card */
+.profile-container {
+	min-height: calc(100vh - 100px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 28px 16px;
+}
+.profile-container .profile-form {
+	width: 100%;
+	max-width: 560px;
+	background: var(--card);
+	border: 1px solid var(--border);
+	border-radius: 16px;
+	padding: 22px;
+	box-shadow: var(--shadow-lg);
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+.profile-container .profile-title { text-align: center; margin-bottom: 12px; }
+.profile-container .profile-input[type="file"] { padding: 8px; }
+.profile-container .profile-image { margin-bottom: 8px; }
+
+
 
 /* Cards */
 .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
