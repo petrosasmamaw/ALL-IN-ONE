@@ -7,8 +7,6 @@ import path from 'path';
 import sellerRouter from './routes/sellerRouter.js';
 import clientRouter from './routes/clientRouter.js';
 import itemRouter from './routes/itemRouter.js';
-import idsRouter from './routes/idsRouter.js';
-import chatRouter from './routes/chatRouter.js';
 import authRouter from './routes/authRouter.js';
 
 dotenv.config();
@@ -27,8 +25,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/sellers', sellerRouter);
 app.use('/api/clients', clientRouter);
 app.use('/api/items', itemRouter);
-app.use('/api/ids', idsRouter);
-app.use('/api/chats', chatRouter);
 app.use('/api/auth', authRouter);
 
 app.use('/uploads', express.static(path.join(path.resolve(), 'uploads')));
