@@ -243,3 +243,77 @@ body{
 	.shop-grid{ grid-template-columns: 1fr }
 }
 
+/* AllChats / Conversations list */
+.conversations {
+	margin-top: 12px;
+}
+.conversations-list{
+	display: grid;
+	gap: 12px;
+}
+.conversation-card{
+	display:flex;
+	justify-content:space-between;
+	align-items:center;
+	padding:12px;
+	border-radius:12px;
+	background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
+	border:1px solid rgba(255,255,255,0.03);
+	cursor:pointer;
+	transition: transform 140ms ease, box-shadow 140ms ease;
+}
+.conversation-card:hover{ transform: translateY(-6px); box-shadow: 0 18px 40px rgba(2,6,23,0.55) }
+.conversation-left{ display:flex; gap:12px; align-items:center }
+.seller-avatar{ width:48px; height:48px; border-radius:10px; display:flex; align-items:center; justify-content:center; background: rgba(255,255,255,0.02); color:#fff; font-weight:800 }
+.conversation-meta{ display:flex; flex-direction:column }
+.seller-name{ color:#fff; font-weight:800 }
+.conversation-count{ color:var(--muted); font-size:0.95rem; margin-top:6px }
+.conversation-arrow{ color:var(--muted); font-weight:700 }
+
+@media (max-width:720px){
+	.seller-avatar{ width:40px; height:40px }
+	.conversation-card{ padding:10px }
+}
+
+/* Chat UI */
+.chat-header{
+	font-weight:800;
+	color:#fff;
+	margin-bottom:12px;
+}
+.chat-list, .chat-messages{
+	max-height:480px;
+	overflow:auto;
+	display:flex;
+	flex-direction:column;
+	gap:10px;
+	padding:12px;
+	background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
+	border-radius:12px;
+	border:1px solid rgba(255,255,255,0.03);
+}
+.chat-message{
+	max-width:78%;
+	padding:10px 12px;
+	border-radius:12px;
+	background: rgba(255,255,255,0.02);
+	color:var(--muted);
+	align-self:flex-start;
+	box-shadow: 0 6px 18px rgba(2,6,23,0.4);
+}
+.chat-message.me{
+	align-self:flex-end;
+	background: linear-gradient(90deg, var(--accent1), var(--accent2));
+	color: white;
+}
+.chat-meta{ font-size:0.75rem; color:rgba(255,255,255,0.55); margin-bottom:6px }
+.chat-text{ font-size:0.95rem; line-height:1.4 }
+.chat-input{ display:flex; gap:10px; margin-top:12px }
+.chat-input input{ flex:1; padding:10px 12px; border-radius:10px; background:var(--glass); border:1px solid rgba(255,255,255,0.04); color:var(--muted); outline:none }
+.chat-input input:focus{ box-shadow:0 6px 18px rgba(7,10,40,0.6) }
+.chat-input .nav-btn{ padding:10px 14px; border-radius:10px }
+
+@media (max-width:720px){
+	.chat-list, .chat-messages{ max-height:320px }
+}
+

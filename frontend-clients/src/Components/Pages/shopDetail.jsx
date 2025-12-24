@@ -33,24 +33,6 @@ const ShopDetail = ({userId}) => {
               <div className="shop-item-desc">{it.description || 'No description'}</div>
               <div className="shop-item-meta">{it.category} • ${it.price}</div>
               <div className="shop-item-actions">
-                <button
-                  className="nav-btn"
-                  onClick={async () => {
-                    if (!userId) {
-                      alert('Please login to start chat')
-                      return
-                    }
-                    try {
-                      const payload = await dispatch(createIds({ itemId: it._id, sellerId: it.sellerId || id, clientId: userId })).unwrap()
-                      navigate(`/chats/${payload._id}`)
-                    } catch (err) {
-                      console.error(err)
-                      alert('Failed to create chat')
-                    }
-                  }}
-                >
-                  Chat
-                </button>
               </div>
             </div>
           </div>

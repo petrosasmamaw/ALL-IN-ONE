@@ -3,8 +3,6 @@ import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import Navbar from './Components/Pages/navbar';
-import AllChat from './Components/Pages/allChat';
-import ItemChat from './Components/Pages/itemChat';
 import Login from './Components/Pages/login';
 import Register from './Components/Pages/register';
 import Profile from './Components/Pages/profile';
@@ -45,8 +43,6 @@ const AppWrapper = () => {
               <Route path="/" element={<Shop user={currentUser} userId={userId} />} />
               <Route path="/shop" element={<Shop user={currentUser} userId={userId} />} />
               <Route path="/shop/:id" element={<ShopDetail user={currentUser} userId={userId} />} />
-              <Route path="/chats" element={<AllChat user={currentUser} userId={userId} />} />
-              <Route path="/chats/:id" element={<ItemChat user={currentUser} userId={userId} />} />
               <Route path="/profile" element={<Profile user={currentUser} userId={userId} />} />
             </>
           ) : (

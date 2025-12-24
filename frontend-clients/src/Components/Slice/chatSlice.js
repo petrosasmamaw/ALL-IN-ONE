@@ -10,6 +10,13 @@ export const fetchChatsByItemId = createAsyncThunk(   "chats/fetchChatsByItemId"
   }
 );
 
+export const fetchChatById = createAsyncThunk(  "chats/fetchChatById",
+  async (id) => {
+    const response = await axios.get(`${CHATAPI_URL}${id}`);
+    return response.data;
+  }
+);
+
 export const fetchChatBySellerIdAndClientId = createAsyncThunk(   "chats/fetchChatBySellerIdAndClientId",
   async ({ sellerId, clientId }) => {
     const response = await axios.get(
@@ -60,6 +67,13 @@ const chatSlice = createSlice({
         state.status = "loading";
       })
       .addCase(fetchChatBySellerIdAndClientId.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.chat = action.payload;
+      })
+      .addCase(fetchChatById.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchChatById.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.chat = action.payload;
       })

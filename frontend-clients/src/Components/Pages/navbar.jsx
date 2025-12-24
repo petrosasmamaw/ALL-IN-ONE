@@ -25,7 +25,7 @@ const Navbar = ({ user, userId, status }) => {
           <>
             <Link to="/shop" className="nav-btn">Shop</Link>
             <Link to="/profile" className="nav-btn">Profile</Link>
-            <Link to="/chats" className="nav-btn">Chats</Link>
+
           </>
         ) : null}
       </nav>

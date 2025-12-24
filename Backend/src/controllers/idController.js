@@ -29,6 +29,12 @@ export const createIds = async (req, res) => {
             clientId = client._id;
         }
 
+        // avoid duplicates: return existing Ids if one already exists
+        const existing = await Ids.findOne({ itemId, sellerId, clientId });
+        if (existing) {
+            return res.status(200).json(existing);
+        }
+
         const newIds = new Ids({ itemId, sellerId, clientId });
         await newIds.save();
         res.status(201).json(newIds);
