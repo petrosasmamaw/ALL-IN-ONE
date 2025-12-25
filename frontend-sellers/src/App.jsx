@@ -6,7 +6,6 @@ import Navbar from './Components/Pages/navbar';
 import Login from './Components/Pages/login';
 import Register from './Components/Pages/register';
 import Profile from './Components/Pages/profile';
-import Chats from './Components/Pages/Chats';
 import Items from './Components/Pages/items';
 import CreateItems from './Components/Pages/createItems';
 import { fetchSession } from './Components/Slice/authSlice';
@@ -44,7 +43,6 @@ const AppWrapper = () => {
               <Route path="/" element={<Items user={currentUser} userId={userId} />} />
               <Route path="/Items" element={<Items user={currentUser} userId={userId} />} />
               <Route path="/CreateItems" element={<CreateItems user={currentUser} userId={userId} />} />
-              <Route path="/chats" element={<Chats user={currentUser} userId={userId} />} />
               <Route path="/profile" element={<Profile user={currentUser} userId={userId} />} />
             </>
           ) : (

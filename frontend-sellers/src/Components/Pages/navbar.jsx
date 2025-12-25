@@ -32,7 +32,6 @@ const Navbar = ({ user, userId, status }) => {
           <>
             <Link to="/Items" className="nav-btn">Items</Link>
             <Link to="/profile" className="nav-btn">Profile</Link>
-            <Link to="/chats" className="nav-btn">Chats</Link>
             <Link to="/CreateItems" className="nav-btn">CreateItmes</Link>
           </>
         ) : null}

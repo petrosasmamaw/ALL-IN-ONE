@@ -217,7 +217,7 @@ body{
 .item-title{ color:#fff; font-weight:800; font-size:1.05rem }
 .item-desc{ color:var(--muted); margin-top:6px; font-size:0.95rem; line-height:1.3; max-height:3.9em; overflow:hidden }
 .item-meta{ color:var(--muted); margin-top:6px }
-.item-actions{ display:flex; gap:8px; margin-top:10px }
+.item-actions{ display:flex; gap:8px; margin-top:10px; color: red;}
 
 @media (min-width:1000px){
   .items-grid{ grid-template-columns: repeat(3, 1fr) }
