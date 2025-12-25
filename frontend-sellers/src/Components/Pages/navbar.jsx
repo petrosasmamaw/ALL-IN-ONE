@@ -16,6 +16,13 @@ const Navbar = ({ user, userId, status }) => {
 
   return (
     <header className="app-navbar">
+      <div className="page-header-row" style={{margin:0}}>
+        <div className="page-icon" aria-hidden>📝</div>
+        <div>
+          <h3 style={{margin:0}}>Navigation</h3>
+          <p className="muted" style={{margin:0}}>Quick links and account actions</p>
+        </div>
+      </div>
       <div className="nav-brand">
         <Link to="/">MyMarket-Seller</Link>
       </div>

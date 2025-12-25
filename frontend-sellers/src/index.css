@@ -1,19 +1,28 @@
-:root{
-	--bg:#0f172a;
-	--card:#0b1220;
-	--accent1:#7c3aed;
-	--accent2:#06b6d4;
-	--muted:rgba(255,255,255,0.7);
-	--glass: rgba(255,255,255,0.04);
+:root {
+	--bg: #f8fafc;
+	--card: #ffffff;
+	--text-main: #0f172a;
+	--text-muted: #64748b;
+	--accent1: #7c3aed;
+	--accent2: #06b6d4;
+	--primary: #4f46e5;
+	--primary-hover: #4338ca;
+	--secondary: #0ea5e9;
+	--border: #e2e8f0;
+	--input-bg: #f1f5f9;
+	--shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+	--shadow-md: 0 4px 6px -1px rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.08);
+	--shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.12), 0 4px 6px -2px rgba(0,0,0,0.08);
+	--radius: 14px;
 }
 
-*{box-sizing:border-box}
-html,body,#root{height:100%;}
+* { box-sizing: border-box }
+html,body,#root { height:100%; }
 body{
 	margin:0;
 	font-family: Inter, Roboto, system-ui, -apple-system, 'Segoe UI', sans-serif;
-	background: linear-gradient(180deg, #071024 0%, #07182a 100%);
-	color:var(--muted);
+	background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+	color:var(--text-main);
 	-webkit-font-smoothing:antialiased;
 }
 
@@ -29,8 +38,8 @@ body{
 	box-shadow: 0 6px 18px rgba(2,6,23,0.6);
 }
 
-.nav-brand a{
-	color: white;
+ .nav-brand a{
+	 color:var(--text-main);
 	text-decoration:none;
 	font-weight:700;
 	font-size:1.15rem;
@@ -117,8 +126,8 @@ body{
 	box-shadow: 0 10px 30px rgba(2,6,23,0.7);
 	border: 1px solid rgba(255,255,255,0.03);
 }
-.auth-title{ color: #fff; margin:0; font-size:1.45rem; font-weight:700 }
-.auth-sub{ color: var(--muted); margin:8px 0 18px; font-size:0.95rem }
+.auth-title{ color: var(--text-main); margin:0; font-size:1.45rem; font-weight:700 }
+.auth-sub{ color: var(--text-muted); margin:8px 0 18px; font-size:0.95rem }
 .auth-form{ display:flex; flex-direction:column; gap:12px }
 .auth-input{
 	width:100%;
@@ -223,5 +232,11 @@ body{
 @media (min-width:1200px){
   .container{ max-width:1400px }
 }
+
+/* Shared small header used across pages (icon + title + subtitle) */
+.page-header-row { display:flex; gap:12px; align-items:center; margin-bottom:12px }
+.page-icon { font-size:1.3rem; width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:10px; background:var(--input-bg); color:var(--text-main) }
+.page-header-row h3 { margin:0; font-size:1.05rem; font-weight:800 }
+.page-header-row p { margin:0; color:var(--text-muted); font-size:0.95rem }
 
 

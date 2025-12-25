@@ -26,6 +26,13 @@ const Register = () => {
 
 	return (
 		<div className="auth-page">
+			<div className="page-header-row">
+				<div className="page-icon" aria-hidden>📝</div>
+				<div>
+					<h3>Create Account</h3>
+					<p className="muted">Join as a seller and start listing items.</p>
+				</div>
+			</div>
 			<div className="auth-card">
 				<h2 className="auth-title">Create an account</h2>
 				<p className="auth-sub">Join now and start shopping</p>

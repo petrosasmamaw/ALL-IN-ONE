@@ -63,6 +63,13 @@ const Profile = ({ userId }) => {
 
   return (
     <div className="profile-container">
+      <div className="page-header-row">
+        <div className="page-icon" aria-hidden>📝</div>
+        <div>
+          <h3>Profile</h3>
+          <p className="muted">Manage your client profile and contact info.</p>
+        </div>
+      </div>
       <h2 className="profile-title">
         {client ? "Update Profile" : "Create Profile"}
       </h2>

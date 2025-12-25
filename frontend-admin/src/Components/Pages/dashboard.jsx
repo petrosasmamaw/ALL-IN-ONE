@@ -52,6 +52,13 @@ const Dashboard = () => {
 
 	return (
 		<div className="dashboard">
+			<div className="page-header-row">
+				<div className="page-icon" aria-hidden>📊</div>
+				<div>
+					<h3>Dashboard</h3>
+					<p className="muted">Overview of platform activity and quick controls.</p>
+				</div>
+			</div>
 			<h2>Dashboard</h2>
 			<p className="dashboard-intro">Welcome back — here's a quick overview of system activity and totals for clients, items, and registered sellers. Use the links below to manage records.</p>
 

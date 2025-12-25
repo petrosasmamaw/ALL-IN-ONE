@@ -39,6 +39,13 @@ const Clients = () => {
   return (
 	<div className="container">
 	  <div className="clients-card">
+		<div className="page-header-row">
+			<div className="page-icon" aria-hidden>📇</div>
+			<div>
+				<h3>Clients</h3>
+				<p className="muted">Manage registered clients and their status.</p>
+			</div>
+		</div>
 		<h2>Clients</h2>
 
 		{status === "loading" && <div className="nav-loading">Loading...</div>}

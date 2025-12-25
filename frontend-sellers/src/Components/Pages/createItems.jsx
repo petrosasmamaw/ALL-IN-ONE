@@ -74,6 +74,13 @@ const CreateItems = ({ userId }) => {
   return (
     <div className="container">
       <div className="seller-profile-container">
+        <div className="page-header-row">
+          <div className="page-icon" aria-hidden>➕</div>
+          <div>
+            <h3>Create Item</h3>
+            <p className="muted">Add a new item to your storefront.</p>
+          </div>
+        </div>
         <h2 className="seller-profile-title">Create Item</h2>
         {error && <div className="alert alert-error" style={{ marginBottom: 10 }}>{error}</div>}
 

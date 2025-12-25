@@ -64,6 +64,13 @@ const SellerProfile = ({ userId }) => {
 
   return (
     <div className="seller-profile-container">
+      <div className="page-header-row">
+        <div className="page-icon" aria-hidden>📝</div>
+        <div>
+          <h3>Seller Profile</h3>
+          <p className="muted">Manage your seller storefront and contact info.</p>
+        </div>
+      </div>
       <h2 className="seller-profile-title">
         {seller ? "Update Seller Profile" : "Create Seller Profile"}
       </h2>

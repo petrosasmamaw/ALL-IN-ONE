@@ -14,6 +14,13 @@ const Shop = () => {
 
 	return (
 		<div className="container">
+			<div className="page-header-row">
+				<div className="page-icon" aria-hidden>🛍️</div>
+				<div>
+					<h3 style={{margin:0}}>Shops</h3>
+					<p className="muted" style={{margin:0}}>Browse available shops and their items.</p>
+				</div>
+			</div>
 			<h2 style={{ marginBottom: 12 }}>Shops</h2>
 
 			{status === "loading" && <div className="nav-loading">Loading sellers...</div>}

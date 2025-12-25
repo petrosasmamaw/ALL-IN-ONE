@@ -22,6 +22,13 @@ const ShopDetail = () => {
 
 	return (
 		<div className="container">
+			<div className="page-header-row">
+				<div className="page-icon" aria-hidden>🛍️</div>
+				<div>
+					<h3 style={{margin:0}}>Shop</h3>
+					<p className="muted" style={{margin:0}}>Details and items for this seller.</p>
+				</div>
+			</div>
 			<h2>Shop</h2>
 
 			{sellerStatus === 'loading' && <div className="nav-loading">Loading seller...</div>}

@@ -18,6 +18,13 @@ const Items = ({ userId }) => {
 
 	return (
 		<div className="container">
+			<div className="page-header-row">
+				<div className="page-icon" aria-hidden>📦</div>
+				<div>
+					<h3 style={{margin:0}}>My Items</h3>
+					<p className="muted" style={{margin:0}}>Items you have listed for sale.</p>
+				</div>
+			</div>
 			<h2>My Items</h2>
 
 			{status === 'loading' && <div className="nav-loading">Loading...</div>}

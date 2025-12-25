@@ -28,6 +28,13 @@ const Login = () => {
 
 	return (
 		<div className="auth-page">
+			<div className="page-header-row">
+				<div className="page-icon" aria-hidden>🔒</div>
+				<div>
+					<h3>Seller Login</h3>
+					<p className="muted">Sign in to manage your items and chats.</p>
+				</div>
+			</div>
 			<div className="auth-card">
 				<h2 className="auth-title">Welcome back Seller</h2>
 				<p className="auth-sub">Sign in to continue to your account</p>

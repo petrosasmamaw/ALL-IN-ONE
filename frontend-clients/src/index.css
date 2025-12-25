@@ -336,3 +336,9 @@ img { max-width: 100%; height: auto; display: block; }
 	.grid-2, .grid-3 { grid-template-columns: 1fr; }
 }
 
+/* Shared small header used across pages (icon + title + subtitle) */
+.page-header-row { display:flex; gap:12px; align-items:center; margin-bottom:12px }
+.page-icon { font-size:1.3rem; width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:10px; background:var(--input-bg); color:var(--text-main) }
+.page-header-row h3 { margin:0; font-size:1.05rem; font-weight:800 }
+.page-header-row p { margin:0; color:var(--text-muted); font-size:0.95rem }
+
