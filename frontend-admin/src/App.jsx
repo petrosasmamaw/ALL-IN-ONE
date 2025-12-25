@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import Navbar from './Components/Pages/navbar';
@@ -17,15 +17,8 @@ const AppWrapper = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // fetch session on mount; only auto-navigate if user is on an auth route or root
-    (async () => {
-      const res = await dispatch(fetchSession());
-      const isAuthRoute = ['/','/login','/register'].includes(location.pathname);
-      if (isAuthRoute) {
-        if (!res.payload?.user) navigate('/login');
-        else navigate('/dashboard');
-      }
-    })();
+    // fetch session on mount; routing decisions handled by route guards
+    dispatch(fetchSession());
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
@@ -33,25 +26,35 @@ const AppWrapper = () => {
   const userId = currentUser?.id || null;
   const isAuthenticated = !!currentUser && status === 'succeeded';
 
+  const RequireAuth = ({ children }) => {
+    // while checking session, avoid flashing protected UI
+    if (status === 'loading') return null;
+    return isAuthenticated ? children : <Navigate to="/login" state={{ from: location }} replace />;
+  };
+
   return (
     <>
       <Navbar user={currentUser} userId={userId} status={status} />
       <div style={{ padding: 12 }}>
         <Routes>
-          {isAuthenticated ? (
-            <>
-              <Route path="/" element={<Dashboard user={currentUser} userId={userId} />} />
-              <Route path="/dashboard" element={<Dashboard user={currentUser} userId={userId} />} />
-              <Route path="/clients" element={<Clients user={currentUser} userId={userId} />} />
-              <Route path="/sellers" element={<Sellers user={currentUser} userId={userId} />} />
-            </>
-          ) : (
-            <>
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/" element={<Login />} />
-            </>
-          )}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+
+          <Route
+            path="/"
+            element={<Navigate to={isAuthenticated ? '/dashboard' : '/login'} replace />}
+          />
+
+          <Route
+            path="/"
+            element={<RequireAuth><Outlet /></RequireAuth>}
+          >
+            <Route path="dashboard" element={<Dashboard user={currentUser} userId={userId} />} />
+            <Route path="clients" element={<Clients user={currentUser} userId={userId} />} />
+            <Route path="sellers" element={<Sellers user={currentUser} userId={userId} />} />
+          </Route>
+
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
     </>
