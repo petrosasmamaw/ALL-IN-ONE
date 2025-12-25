@@ -60,7 +60,7 @@ const Dashboard = () => {
 				</div>
 			</div>
 			<h2>Dashboard</h2>
-			<p className="dashboard-intro">Welcome back — here's a quick overview of system activity and totals for clients, items, and registered sellers. Use the links below to manage records.</p>
+			<p className="dashboard-intro">Welcome back — here's a quick overview of system activity and totals for clients, items, and registered sellers. </p>
 
 			<div className="stats-row">
 				<div className="stat-card">

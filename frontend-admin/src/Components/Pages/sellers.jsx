@@ -11,20 +11,28 @@ const Sellers = () => {
 		dispatch(fetchAllSellers());
 	}, [dispatch]);
 
-	const toggleStatus = (s) => {
+	const toggleStatus = async (s) => {
 		const newStatus = s.status === "active" ? "inactive" : "active";
-		dispatch(
-			updateSeller({
-				id: s._id,
-				sellerData: {
-					name: s.name,
-					userId: s.userId,
-					phoneNo: s.phoneNo,
-					category: s.category,
-					status: newStatus,
-				},
-			})
-		);
+		try {
+			// dispatch update and wait for result; then refresh list to ensure UI matches server
+			await dispatch(
+				updateSeller({
+					id: s._id,
+					sellerData: {
+						name: s.name,
+						userId: s.userId,
+						phoneNo: s.phoneNo,
+						category: s.category,
+						status: newStatus,
+					},
+				})
+			).unwrap();
+
+			dispatch(fetchAllSellers());
+		} catch (err) {
+			console.error("Failed to update seller status:", err);
+			alert("Could not update seller status. Check console for details.");
+		}
 	};
 
 	const handleDelete = (id) => {

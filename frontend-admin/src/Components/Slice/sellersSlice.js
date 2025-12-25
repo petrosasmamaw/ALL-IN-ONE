@@ -115,7 +115,9 @@ const sellersSlice = createSlice({
 
       .addCase(updateSeller.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.seller = action.payload; // ⭐ KEY FIX
+        state.seller = action.payload; // keep single seller
+        // Replace the updated seller in the sellers list so UI reflects changes immediately
+        state.sellers = state.sellers.map((s) => (s._id === action.payload._id ? action.payload : s));
       });
 
     /* ---------- DELETE ---------- */
