@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchItemsBySellerId } from '../Slice/itemSlice'
 import { fetchSellerById } from '../Slice/sellersSlice'
 
-const ShopDetail = () => {
+const ShopDetail = ({ userId }) => {
 	const { id } = useParams()
 	const dispatch = useDispatch()
+	const navigate = useNavigate()
 
 	const seller = useSelector((state) => state.sellers.seller)
 	const sellerStatus = useSelector((state) => state.sellers.status)
@@ -68,6 +69,9 @@ const ShopDetail = () => {
 							<div className="shop-item-title">{it.name}</div>
 							<div className="shop-item-desc">{it.description || 'No description'}</div>
 							<div className="shop-item-meta">{it.category} • ${it.price}</div>
+							<div style={{ marginTop: 10 }}>
+								<button className="btn chat" onClick={() => navigate(`/chat?clientId=${userId || ''}&sellerId=${seller?._id || seller?.id || id}&itemId=${it?._id || it?.id}`)}>Chat</button>
+							</div>
 						</div>
 					</div>
 				))}

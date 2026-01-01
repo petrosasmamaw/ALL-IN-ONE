@@ -3,9 +3,15 @@ import mongoose from "mongoose";
 const chatSchema = new mongoose.Schema(
   {
     itemId: { type: String, required: true },
-    clientId: { type: String },
-    sellerId: { type: String, required: true, unique: true },
-    message: { type: String, required: true },
+    clientId: { type: String, required: true },
+    sellerId: { type: String, required: true },
+    messages: [
+      {
+        senderId: { type: String, required: true },
+        text: { type: String, required: true },
+        createdAt: { type: Date, default: Date.now },
+      },
+    ],
   },
   { timestamps: true }
 );

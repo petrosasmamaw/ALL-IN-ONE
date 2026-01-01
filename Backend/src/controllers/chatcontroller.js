@@ -10,8 +10,27 @@ export const getAllChats = async (req, res) => {
 };
 export const createChat = async (req, res) => {
   try {
-    const { itemId, clientId, sellerId, message } = req.body;
-    const newChat = new Chat({ itemId, clientId, sellerId, message });
+    const { itemId, clientId, sellerId, message, senderId } = req.body;
+    if (!itemId || !clientId || !sellerId || !message || !senderId) {
+      return res.status(400).json({ message: "Missing required chat fields" });
+    }
+
+    // Try to find existing chat for the same item/client/seller
+    let chat = await Chat.findOne({ itemId, clientId, sellerId });
+    if (chat) {
+      // append new message
+      chat.messages.push({ senderId, text: message });
+      await chat.save();
+      return res.status(200).json(chat);
+    }
+
+    // Create new chat document with first message
+    const newChat = new Chat({
+      itemId,
+      clientId,
+      sellerId,
+      messages: [{ senderId, text: message }],
+    });
     await newChat.save();
     res.status(201).json(newChat);
   } catch (error) {
