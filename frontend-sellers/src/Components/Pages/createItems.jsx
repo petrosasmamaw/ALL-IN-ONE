@@ -141,7 +141,6 @@ const CreateItems = ({ userId }) => {
           </button>
         </form>
       </div>
-      {console.log(userId)}
     </div>
   );
 };
