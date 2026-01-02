@@ -71,6 +71,14 @@ export const updateSeller = createAsyncThunk(
   }
 );
 
+export const updateSellerStatus = createAsyncThunk(
+  "sellers/updateSellerStatus",
+  async ({ id, status }) => {
+    const response = await axios.patch(`${SELLERAPI_URL}${id}/status`, { status });
+    return response.data;
+  }
+);
+
 const sellersSlice = createSlice({
   name: "sellers",
   initialState: {
@@ -119,6 +127,15 @@ const sellersSlice = createSlice({
         // Replace the updated seller in the sellers list so UI reflects changes immediately
         state.sellers = state.sellers.map((s) => (s._id === action.payload._id ? action.payload : s));
       });
+
+    builder.addCase(updateSellerStatus.pending, (state) => { state.status = 'loading'; });
+    builder.addCase(updateSellerStatus.fulfilled, (state, action) => {
+      state.status = 'succeeded';
+      // update sellers list
+      state.sellers = state.sellers.map((s) => (s._id === action.payload._id ? action.payload : s));
+      if (state.seller && state.seller._id === action.payload._id) state.seller = action.payload;
+    });
+    builder.addCase(updateSellerStatus.rejected, (state, action) => { state.status = 'failed'; state.error = action.error.message; });
 
     /* ---------- DELETE ---------- */
     builder.addCase(deleteSeller.fulfilled, (state, action) => {

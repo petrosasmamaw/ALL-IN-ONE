@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllSellers, updateSeller, deleteSeller } from "../Slice/sellersSlice";
+import { fetchAllSellers, updateSellerStatus, deleteSeller } from "../Slice/sellersSlice";
 
 const Sellers = () => {
 	const dispatch = useDispatch();
@@ -14,24 +14,13 @@ const Sellers = () => {
 	const toggleStatus = async (s) => {
 		const newStatus = s.status === "active" ? "inactive" : "active";
 		try {
-			// dispatch update and wait for result; then refresh list to ensure UI matches server
-			await dispatch(
-				updateSeller({
-					id: s._id,
-					sellerData: {
-						name: s.name,
-						userId: s.userId,
-						phoneNo: s.phoneNo,
-						category: s.category,
-						status: newStatus,
-					},
-				})
-			).unwrap();
-
-			dispatch(fetchAllSellers());
+		  // dispatch status-only update
+		  await dispatch(updateSellerStatus({ id: s._id, status: newStatus })).unwrap();
+		  // refresh sellers list
+		  dispatch(fetchAllSellers());
 		} catch (err) {
-			console.error("Failed to update seller status:", err);
-			alert("Could not update seller status. Check console for details.");
+		  console.error("Failed to update seller status:", err);
+		  alert("Could not update seller status. Check console for details.");
 		}
 	};
 

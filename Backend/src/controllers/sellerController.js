@@ -57,13 +57,14 @@ export const createSeller = async (req, res) => {
 export const updateSeller = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, phoneNo, category } = req.body;
+    const { name, phoneNo, category, status, userId } = req.body;
 
-    const updatedData = {
-      name,
-      phoneNo,
-      category,
-    };
+    const updatedData = {};
+    if (name !== undefined) updatedData.name = name;
+    if (phoneNo !== undefined) updatedData.phoneNo = phoneNo;
+    if (category !== undefined) updatedData.category = category;
+    if (status !== undefined) updatedData.status = status;
+    if (userId !== undefined) updatedData.userId = userId;
 
     if (req.file) {
       updatedData.image = req.file.path;
@@ -86,6 +87,27 @@ export const deleteSeller = async (req, res) => {
     const { id } = req.params;
     await Seller.findByIdAndDelete(id);
     res.status(200).json({ message: "Seller deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const updateSellerStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    if (!status) return res.status(400).json({ message: 'Missing status' });
+
+    const updatedSeller = await Seller.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true }
+    );
+
+    if (!updatedSeller) return res.status(404).json({ message: 'Seller not found' });
+
+    res.status(200).json(updatedSeller);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
