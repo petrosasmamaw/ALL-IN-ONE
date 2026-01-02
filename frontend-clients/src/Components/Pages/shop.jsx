@@ -27,7 +27,7 @@ const Shop = () => {
 
 			<div className="shop-grid">
 				{sellers.map((s) => (
-					<Link to={`/shop/${s._id}`} className="shop-card" key={s._id}>
+					<Link to={`/shop/${s.userId}`} className="shop-card" key={s._id}>
 						<div className="shop-avatar-wrap">
 							{s.image ? (
 								<img src={s.image} alt={s.name} className="shop-avatar" />

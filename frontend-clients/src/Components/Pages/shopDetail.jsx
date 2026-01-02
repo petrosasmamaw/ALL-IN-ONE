@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchItemsBySellerId } from '../Slice/itemSlice'
-import { fetchSellerById } from '../Slice/sellersSlice'
+import { fetchSellerByUserId } from '../Slice/sellersSlice'
 
 const ShopDetail = ({ userId }) => {
 	const { id } = useParams()
@@ -17,7 +17,8 @@ const ShopDetail = ({ userId }) => {
 
 	useEffect(() => {
 		if (!id) return
-		dispatch(fetchSellerById(id))
+		// `id` is the seller's userId (from /shop/:id links)
+		dispatch(fetchSellerByUserId(id))
 		dispatch(fetchItemsBySellerId(id))
 	}, [dispatch, id])
 
@@ -70,7 +71,7 @@ const ShopDetail = ({ userId }) => {
 							<div className="shop-item-desc">{it.description || 'No description'}</div>
 							<div className="shop-item-meta">{it.category} • ${it.price}</div>
 							<div style={{ marginTop: 10 }}>
-								<button className="btn chat" onClick={() => navigate(`/chat?clientId=${userId || ''}&sellerId=${seller?._id || seller?.id || id}&itemId=${it?._id || it?.id}`)}>Chat</button>
+								<button className="btn chat" onClick={() => navigate(`/chat?clientId=${userId || ''}&sellerId=${seller?.userId || seller?._id || id}&itemId=${it?._id || it?.id}`)}>Chat</button>
 							</div>
 						</div>
 					</div>
