@@ -57,26 +57,24 @@ export const createSeller = async (req, res) => {
 export const updateSeller = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, phoneNo, category, status, userId } = req.body;
+    // Support both JSON and multipart/form-data (upload.single sets req.file)
+    const seller = await Seller.findById(id);
+    if (!seller) return res.status(404).json({ message: 'Seller not found' });
 
-    const updatedData = {};
-    if (name !== undefined) updatedData.name = name;
-    if (phoneNo !== undefined) updatedData.phoneNo = phoneNo;
-    if (category !== undefined) updatedData.category = category;
-    if (status !== undefined) updatedData.status = status;
-    if (userId !== undefined) updatedData.userId = userId;
+    const { name, phoneNo, category, status, userId } = req.body || {};
+
+    if (name !== undefined) seller.name = name;
+    if (phoneNo !== undefined) seller.phoneNo = phoneNo;
+    if (category !== undefined) seller.category = category;
+    if (status !== undefined) seller.status = status;
+    if (userId !== undefined) seller.userId = userId;
 
     if (req.file) {
-      updatedData.image = req.file.path;
+      seller.image = req.file.path;
     }
 
-    const updatedSeller = await Seller.findByIdAndUpdate(
-      id,
-      updatedData,
-      { new: true }
-    );
-
-    res.status(200).json(updatedSeller);
+    await seller.save();
+    res.status(200).json(seller);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
