@@ -8,6 +8,8 @@ import Register from './Components/Pages/register';
 import Profile from './Components/Pages/profile';
 import Items from './Components/Pages/items';
 import CreateItems from './Components/Pages/createItems';
+import Chat from './Components/Pages/chat';
+import ChatDetail from './Components/Pages/chatDetail';
 import { fetchSession } from './Components/Slice/authSlice';
 
 const AppWrapper = () => {
@@ -44,6 +46,8 @@ const AppWrapper = () => {
               <Route path="/Items" element={<Items user={currentUser} userId={userId} />} />
               <Route path="/CreateItems" element={<CreateItems user={currentUser} userId={userId} />} />
               <Route path="/profile" element={<Profile user={currentUser} userId={userId} />} />
+              <Route path="/chats" element={<Chat user={currentUser} userId={userId} />} />
+              <Route path="/chats/:itemId/:clientId/:sellerId" element={<ChatDetail user={currentUser} userId={userId} />} />
             </>
           ) : (
             <>

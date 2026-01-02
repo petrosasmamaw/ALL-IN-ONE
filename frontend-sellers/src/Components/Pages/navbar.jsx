@@ -30,6 +30,7 @@ const Navbar = ({ user, userId, status }) => {
         {isAuthenticated ? (
           <>
             <Link to="/Items" className="nav-btn">Items</Link>
+              <Link to="/chats" className="nav-btn">Chats</Link>
             <Link to="/profile" className="nav-btn">Profile</Link>
             <Link to="/CreateItems" className="nav-btn">CreateItmes</Link>
           </>

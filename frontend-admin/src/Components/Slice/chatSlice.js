@@ -49,3 +49,80 @@ export const deleteChat = createAsyncThunk(
         return id;
     }
 );
+
+const initialState = {
+    chats: [],
+    chat: null,
+    status: "idle",
+    error: null,
+};
+
+const chatSlice = createSlice({
+    name: "chats",
+    initialState,
+    extraReducers(builder) {
+        builder
+            .addCase(fetchAllChats.pending, (state) => {
+                state.status = "loading";
+            })
+            .addCase(fetchAllChats.fulfilled, (state, action) => {
+                state.status = "succeeded";
+                state.chats = action.payload;
+            })
+            .addCase(fetchAllChats.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.error.message;
+            })
+
+            .addCase(fetchChatsBySellerId.pending, (state) => {
+                state.status = "loading";
+            })
+            .addCase(fetchChatsBySellerId.fulfilled, (state, action) => {
+                state.status = "succeeded";
+                state.chats = action.payload;
+            })
+            .addCase(fetchChatsBySellerId.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.error.message;
+            })
+
+            .addCase(fetchChatsByClientId.pending, (state) => {
+                state.status = "loading";
+            })
+            .addCase(fetchChatsByClientId.fulfilled, (state, action) => {
+                state.status = "succeeded";
+                state.chats = action.payload;
+            })
+            .addCase(fetchChatsByClientId.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.error.message;
+            })
+
+            .addCase(fetchChatByItemClientSeller.pending, (state) => {
+                state.status = "loading";
+            })
+            .addCase(fetchChatByItemClientSeller.fulfilled, (state, action) => {
+                state.status = "succeeded";
+                state.chat = action.payload;
+            })
+            .addCase(fetchChatByItemClientSeller.rejected, (state, action) => {
+                state.status = "failed";
+                state.chat = null;
+                state.error = action.payload?.message || action.error.message;
+            })
+
+            .addCase(createChat.fulfilled, (state, action) => {
+                const idx = state.chats.findIndex((c) => c._id === action.payload._id);
+                if (idx >= 0) state.chats[idx] = action.payload;
+                else state.chats.unshift(action.payload);
+                state.chat = action.payload;
+            })
+            .addCase(deleteChat.fulfilled, (state, action) => {
+                state.chats = state.chats.filter((c) => c._id !== action.payload);
+                if (state.chat && state.chat._id === action.payload) state.chat = null;
+            });
+    },
+});
+
+
+export default chatSlice.reducer;

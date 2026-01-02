@@ -14,17 +14,19 @@ export const getAllItems = async (req, res) => {
 export const getItemsBySellerId = async (req, res) => {
     try {
         const { sellerId } = req.params;
-
-        // Support passing either the Seller._id OR the userId of the seller
-        let sellerObjectId = sellerId;
-        if (!mongoose.Types.ObjectId.isValid(sellerObjectId)) {
-            // treat sellerId as a userId and resolve the Seller document
-            const seller = await Seller.findOne({ userId: sellerId });
-            if (!seller) return res.status(200).json([]);
-            sellerObjectId = seller._id;
+        // Support querying by either Seller._id (legacy) or seller userId (Supabase UUID)
+        if (mongoose.Types.ObjectId.isValid(sellerId)) {
+            // querying by Seller._id (stored as string on Item.sellerId)
+            const items = await Item.find({ sellerId });
+            return res.status(200).json(items);
         }
 
-        const items = await Item.find({ sellerId: sellerObjectId });
+        // sellerId is not an ObjectId — treat as userId. Find matching Seller document.
+        const seller = await Seller.findOne({ userId: sellerId });
+        if (!seller) return res.status(200).json([]);
+
+        // Return items that reference either the userId (new style) or the Seller._id (legacy)
+        const items = await Item.find({ $or: [{ sellerId: sellerId }, { sellerId: seller._id.toString() }] });
         res.status(200).json(items);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -39,12 +41,15 @@ export const createItem = async (req, res) => {
             return res.status(400).json({ message: "Missing required fields: name, sellerId, category, price" });
         }
 
-        // Accept either Seller ObjectId or userId string and map to Seller._id
-        let sellerObjectId = sellerId;
-        if (!mongoose.Types.ObjectId.isValid(sellerObjectId)) {
+        // If sellerId is a Mongo ObjectId string, store it as-is (legacy behavior).
+        // If sellerId is not an ObjectId, treat it as the seller userId (Supabase UUID)
+        // and verify a Seller record exists for that userId.
+        let storedSellerId = sellerId;
+        if (!mongoose.Types.ObjectId.isValid(sellerId)) {
             const seller = await Seller.findOne({ userId: sellerId });
             if (!seller) return res.status(400).json({ message: "Invalid sellerId or seller not found" });
-            sellerObjectId = seller._id;
+            // store the userId string (not the Seller._id) so item.sellerId === userId
+            storedSellerId = seller.userId;
         }
 
         const numPrice = Number(price);
@@ -52,7 +57,7 @@ export const createItem = async (req, res) => {
             return res.status(400).json({ message: "Price must be a number" });
         }
 
-        const newItem = new Item({ name, image, sellerId: sellerObjectId, category, description, price: numPrice, status: status || "active" });
+        const newItem = new Item({ name, image, sellerId: storedSellerId, category, description, price: numPrice, status: status || "active" });
         await newItem.save();
         res.status(201).json(newItem);
     } catch (error) {
@@ -68,11 +73,13 @@ export const updateItem = async (req, res) => {
         const updatedData = { name, category, description, status };
         if (sellerId) {
             if (mongoose.Types.ObjectId.isValid(sellerId)) {
+                // legacy: sellerId is a Mongo _id
                 updatedData.sellerId = sellerId;
             } else {
+                // treat sellerId as userId and verify Seller exists, then store userId
                 const seller = await Seller.findOne({ userId: sellerId });
                 if (!seller) return res.status(400).json({ message: "Invalid sellerId or seller not found" });
-                updatedData.sellerId = seller._id;
+                updatedData.sellerId = seller.userId;
             }
         }
         if (price !== undefined) updatedData.price = Number(price);

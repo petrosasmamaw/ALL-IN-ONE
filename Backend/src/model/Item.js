@@ -4,11 +4,7 @@ const itemSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     image: { type: String },
-    sellerId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Seller",
-      required: true,
-    },
+    sellerId: { type: String , required: true },
     category: {
       type: String,
       enum: ["Freelancers", "Items", "Laborers", "Services", "Jobs"],
@@ -20,7 +16,7 @@ const itemSchema = new mongoose.Schema(
       type: String,
       enum: ["active", "inactive"],
       default: "inactive",
-    },
+    }, 
   },
   { timestamps: true }
 );
