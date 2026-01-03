@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+
 import Navbar from './Components/Pages/navbar';
 import Login from './Components/Pages/login';
 import Register from './Components/Pages/register';
@@ -10,6 +11,8 @@ import Items from './Components/Pages/items';
 import CreateItems from './Components/Pages/createItems';
 import Chat from './Components/Pages/chat';
 import ChatDetail from './Components/Pages/chatDetail';
+import SellerFooter from './Components/Pages/sellerfooter';
+
 import { fetchSession } from './Components/Slice/authSlice';
 
 const AppWrapper = () => {
@@ -57,6 +60,7 @@ const AppWrapper = () => {
             </>
           )}
         </Routes>
+        <SellerFooter />
       </div>
     </>
   );

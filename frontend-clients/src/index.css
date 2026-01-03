@@ -428,3 +428,66 @@ img { max-width: 100%; height: auto; display: block; }
 .page-header-row h3 { margin:0; font-size:1.05rem; font-weight:800 }
 .page-header-row p { margin:0; color:var(--text-muted); font-size:0.95rem }
 
+.footer {
+  padding: 60px 20px 20px;
+  font-family: "Inter", sans-serif;
+  color: #2a2a2a;
+}
+
+.seller-footer {
+  background: linear-gradient(135deg, #ffe29f, #ffa99f);
+}
+
+.client-footer {
+  background: linear-gradient(135deg, #c2e9fb, #a1c4fd);
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 40px;
+}
+
+.footer-brand h2 {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.footer-brand p {
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.footer-section h4 {
+  margin-bottom: 14px;
+  font-size: 18px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.footer-section svg {
+  color: #5a4fcf;
+  font-size: 18px;
+}
+
+.footer-bottom {
+  margin-top: 40px;
+  text-align: center;
+  padding-top: 15px;
+  font-size: 14px;
+  opacity: 0.85;
+  border-top: 1px solid rgba(0,0,0,0.1);
+}

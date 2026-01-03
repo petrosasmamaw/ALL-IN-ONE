@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+
 import Navbar from './Components/Pages/navbar';
 import Login from './Components/Pages/login';
 import Register from './Components/Pages/register';
@@ -9,6 +10,8 @@ import Profile from './Components/Pages/profile';
 import Shop from './Components/Pages/shop';
 import ShopDetail from './Components/Pages/shopDetail';
 import Chat from './Components/Pages/chat';
+import ClientFooter from './Components/Pages/clientFooter';
+
 import { fetchSession } from './Components/Slice/authSlice';
 
 const AppWrapper = () => {
@@ -55,6 +58,7 @@ const AppWrapper = () => {
             </>
           )}
         </Routes>
+        <ClientFooter />
       </div>
     </>
   );
