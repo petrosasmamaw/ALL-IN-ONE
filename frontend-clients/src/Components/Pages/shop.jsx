@@ -14,6 +14,21 @@ const Shop = () => {
 
 	return (
 		<div className="container">
+			{/* Hero */}
+			<div className="shop-hero" style={{ backgroundImage: `url(https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=1400&q=80)` }}>
+				<div className="shop-hero-overlay">
+					<div className="shop-hero-content">
+						<h1>Discover Local Shops</h1>
+						<p className="lead">Browse curated storefronts and find unique items, services, and talents from trusted sellers nearby. Tap a shop to see their items, contact them, or start a chat.</p>
+						<div className="shop-hero-icons">
+							<span className="badge">🛍️ Shops</span>
+							<span className="badge">⭐ Trusted</span>
+							<span className="badge">You can chat seller</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<div className="page-header-row">
 				<div className="page-icon" aria-hidden>🛍️</div>
 				<div>
@@ -32,7 +47,7 @@ const Shop = () => {
 							{s.image ? (
 								<img src={s.image} alt={s.name} className="shop-avatar" />
 							) : (
-								<div className="shop-avatar placeholder">{s.name?.charAt(0).toUpperCase()}</div>
+								<img src={`https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=800&q=60`} alt={s.name} className="shop-avatar" />
 							)}
 						</div>
 
@@ -42,6 +57,7 @@ const Shop = () => {
 								<span className="shop-category">{s.category}</span>
 								<span className={"shop-status " + (s.status === "active" ? "active" : "inactive")}>{s.status}</span>
 							</div>
+							<p className="shop-desc">{s.description || "Quality local sellers. Click to view storefront and items."}</p>
 						</div>
 					</Link>
 				))}

@@ -303,6 +303,27 @@ input[type="file"], .seller-profile-input[type="file"] {
 .shop-status.active { background: #dcfce7; color: #166534; }
 .shop-status.inactive { background: #f1f5f9; color: #64748b; }
 
+/* Hero for Shop page */
+.shop-hero { border-radius: 14px; overflow: hidden; margin: 14px 0 22px; position: relative; min-height: 220px; background-size: cover; background-position: center; }
+.shop-hero-overlay { background: linear-gradient(180deg, rgba(10,10,20,0.28), rgba(10,10,20,0.05)); width:100%; height:100%; display:flex; align-items:center; }
+.shop-hero-content { max-width: 1100px; margin: 0 auto; padding: 28px; color: #fff; text-shadow: 0 4px 18px rgba(0,0,0,0.35); }
+.shop-hero h1 { font-size: 2.2rem; margin: 0 0 8px; }
+.shop-hero .lead { color: rgba(255,255,255,0.9); margin-bottom: 10px; }
+.shop-hero-icons { display:flex; gap:10px; margin-top:10px; }
+
+/* Make shop cards slightly more airy and show a subtle icon */
+.shop-card { align-items: flex-start; padding: 18px; display:flex; gap: 16px; }
+.shop-avatar { width: 92px; height: 92px; border-radius: 12px; flex: 0 0 92px; object-fit: cover; }
+.shop-desc { color: var(--text-muted); margin-top: 8px; font-size: 0.95rem; }
+
+/* small badge tweaks */
+.badge { background: rgba(255,255,255,0.12); color: #fff; padding: 6px 10px; border-radius: 999px; font-weight:700; display:inline-flex; align-items:center; gap:8px; }
+
+@media (max-width:880px){
+	.shop-hero { min-height: 180px }
+	.shop-avatar { width:72px; height:72px }
+}
+
 /* Shop Detail */
 .shop-detail-container { max-width: 1200px; margin: 0 auto; padding: 24px; }
 .shop-detail-grid-wrap { display: flex; gap: 28px; align-items: flex-start; }

@@ -16,12 +16,6 @@ const Navbar = ({ user, userId, status }) => {
 
   return (
     <header className="app-navbar">
-      <div className="page-header-row" style={{margin:0}}>
-        <div className="page-icon" aria-hidden>📝</div>
-        <div>
-          <h3 style={{margin:0}}>Navigation</h3>
-        </div>
-      </div>
       <div className="nav-brand">
         <Link to="/">MyMarket-Client</Link>
       </div>

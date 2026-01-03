@@ -76,7 +76,7 @@ body{
 .nav-btn:hover{ transform: translateY(-2px); }
 
 .nav-btn.primary{
-	color: white;
+	color: black;
 	background: linear-gradient(90deg, var(--accent1), var(--accent2));
 	box-shadow: 0 6px 18px rgba(96,165,250,0.08);
 }
@@ -87,12 +87,12 @@ body{
 
 .nav-btn.ghost{
 	background: transparent;
-	color: #ffdddd;
+	color: #0da51c;
 }
 
 /* Navbar authenticated user display */
 .nav-user{ display:flex; align-items:center; gap:10px }
-.nav-user-avatar{ padding:6px 12px; border-radius:10px; background: rgba(255,255,255,0.04); color:#fff; font-weight:600; max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap }
+.nav-user-avatar{ padding:6px 12px; border-radius:10px; background: rgba(255,255,255,0.04); color:#37ab5e; font-weight:600; max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap }
 .nav-loading{ opacity:0.85; padding:8px 10px }
 
 /* When unauthenticated, push actions to center-right and remove nav-links spacing */
@@ -173,7 +173,7 @@ body{
 .seller-profile-title{
 	position:relative;z-index:1;
 	margin:0 0 18px 0;
-	color:#fff;
+	color:#5991e5;
 	font-size:1.6rem;
 	font-weight:800;
 	letter-spacing:0.2px;
@@ -214,7 +214,7 @@ body{
 .item-thumb{ width:96px; height:96px; flex:0 0 96px }
 .item-thumb img{ width:100%; height:100%; object-fit:cover; border-radius:8px }
 .item-placeholder{ width:96px; height:96px; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.02); border-radius:8px; font-weight:800 }
-.item-title{ color:#fff; font-weight:800; font-size:1.05rem }
+.item-title{ color:#6770ec; font-weight:800; font-size:1.05rem }
 .item-desc{ color:var(--muted); margin-top:6px; font-size:0.95rem; line-height:1.3; max-height:3.9em; overflow:hidden }
 .item-meta{ color:var(--muted); margin-top:6px }
 .item-actions{ display:flex; gap:8px; margin-top:10px; color: red;}
@@ -244,7 +244,7 @@ body{
 .chat-item{ display:flex; justify-content:space-between; align-items:center; padding:10px 12px; border-radius:10px; text-decoration:none; color:inherit; background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.02) }
 .chat-item:hover{ transform: translateY(-2px); box-shadow: var(--shadow-sm) }
 .chat-item-left{ display:flex; flex-direction:column }
-.chat-item-title{ font-weight:800; color:#fff }
+.chat-item-title{ font-weight:800; color:#547580 }
 .chat-item-sub{ color:var(--text-muted); font-size:0.9rem }
 .chat-item-right{ text-align:right; max-width:360px; margin-left:12px }
 .chat-item-last{ color:var(--text-muted); font-size:0.95rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
