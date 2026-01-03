@@ -118,10 +118,11 @@ p { font-size: 1rem; color: var(--text-main); margin: 0 0 10px; }
 .nav-btn.outline:hover { border-color: var(--primary); color: var(--primary); }
 .nav-user { display: flex; align-items: center; gap: 10px; }
 .nav-user-avatar {
-	width: 36px; height: 36px; border-radius: 50%;
+	min-width: 36px; height: 36px; border-radius: 999px;
 	background: linear-gradient(135deg, var(--primary), var(--secondary));
-	color: #fff; display: flex; align-items: center; justify-content: center;
-	font-weight: 700;
+	color: #fff; display: inline-flex; align-items: center; justify-content: center;
+	font-weight: 700; padding: 6px 10px; flex: 0 0 auto;
+	max-width: 240px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 
 /* Buttons */
