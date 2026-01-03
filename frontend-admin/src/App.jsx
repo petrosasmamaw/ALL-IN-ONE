@@ -9,6 +9,7 @@ import Clients from './Components/Pages/clients';
 import Dashboard from './Components/Pages/dashboard';
 import Sellers from './Components/Pages/sellers';
 import { fetchSession } from './Components/Slice/authSlice';
+import AdminFooter from './Components/Pages/footer';
 
 const AppWrapper = () => {
   const dispatch = useDispatch();
@@ -56,6 +57,7 @@ const AppWrapper = () => {
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        <AdminFooter />
       </div>
     </>
   );

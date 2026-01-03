@@ -256,3 +256,78 @@ body{
 	.chart-wrap{ width:100%; overflow:auto }
 }
 
+.admin-footer {
+  background: linear-gradient(135deg, #0f172a, #020617);
+  color: #e5e7eb;
+  padding: 60px 20px 30px;
+  font-family: "Inter", sans-serif;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+}
+
+.footer-section h3 {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  color: #38bdf8;
+}
+
+.footer-section p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #cbd5f5;
+}
+
+.footer-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.footer-features span {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  backdrop-filter: blur(8px);
+}
+
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.contact-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  font-size: 0.95rem;
+  color: #e5e7eb;
+}
+
+.contact-list svg {
+  color: #38bdf8;
+  font-size: 1.1rem;
+}
+
+.footer-bottom {
+  grid-column: 1 / -1;
+  margin-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 20px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
