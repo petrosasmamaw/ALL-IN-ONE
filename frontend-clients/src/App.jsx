@@ -10,7 +10,9 @@ import Profile from './Components/Pages/profile';
 import Shop from './Components/Pages/shop';
 import ShopDetail from './Components/Pages/shopDetail';
 import Chat from './Components/Pages/chat';
+import MyChats from './Components/Pages/mychats';
 import ClientFooter from './Components/Pages/clientFooter';
+
 
 import { fetchSession } from './Components/Slice/authSlice';
 
@@ -48,6 +50,7 @@ const AppWrapper = () => {
               <Route path="/shop" element={<Shop user={currentUser} userId={userId} />} />
               <Route path="/shop/:id" element={<ShopDetail user={currentUser} userId={userId} />} />
               <Route path="/chat" element={<Chat user={currentUser} userId={userId} />} />
+              <Route path="/mychats" element={<MyChats user={currentUser} userId={userId} />} />
               <Route path="/profile" element={<Profile user={currentUser} userId={userId} />} />
             </>
           ) : (

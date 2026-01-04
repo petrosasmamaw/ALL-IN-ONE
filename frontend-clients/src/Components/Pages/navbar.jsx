@@ -17,7 +17,7 @@ const Navbar = ({ user, userId, status }) => {
   return (
     <header className="app-navbar">
       <div className="nav-brand">
-        <Link to="/">MyMarket-Client</Link>
+        <Link to="/">All In One</Link>
       </div>
 
       <nav className="nav-links">
@@ -25,6 +25,7 @@ const Navbar = ({ user, userId, status }) => {
           <>
             <Link to="/shop" className="nav-btn">Shop</Link>
             <Link to="/profile" className="nav-btn">Profile</Link>
+            <Link to="/mychats" className="nav-btn">My Chats</Link>
 
           </>
         ) : null}
