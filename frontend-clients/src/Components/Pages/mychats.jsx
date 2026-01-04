@@ -43,7 +43,7 @@ const MyChats = ({ userId }) => {
             const last = chat.messages && chat.messages.length ? chat.messages[chat.messages.length - 1] : null;
             return (
               <Link
-                to={`/chats/${chat.itemId}/${chat.clientId}/${chat.sellerId}`}
+                to={`/chat?itemId=${encodeURIComponent(chat.itemId)}&clientId=${encodeURIComponent(chat.clientId)}&sellerId=${encodeURIComponent(chat.sellerId)}`}
                 className="conversation-card"
                 key={chat._id}
               >

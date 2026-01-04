@@ -71,7 +71,19 @@ const ShopDetail = ({ userId }) => {
 							<div className="shop-item-desc">{it.description || 'No description'}</div>
 							<div className="shop-item-meta">{it.category} • ${it.price}</div>
 							<div style={{ marginTop: 10 }}>
-								<button className="btn chat" onClick={() => navigate(`/chat?clientId=${userId || ''}&sellerId=${seller?.userId || seller?._id || id}&itemId=${it?._id || it?.id}`)}>Chat</button>
+								<button
+									className="btn chat"
+									onClick={() => {
+										const params = new URLSearchParams({
+											clientId: userId || '',
+											sellerId: seller?.userId || seller?._id || id,
+											itemId: it?._id || it?.id
+										}).toString()
+										navigate(`/chat?${params}`)
+									}}
+								>
+									Chat
+								</button>
 							</div>
 						</div>
 					</div>
