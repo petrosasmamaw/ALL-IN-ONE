@@ -432,6 +432,10 @@ img { max-width: 100%; height: auto; display: block; }
   padding: 60px 20px 20px;
   font-family: "Inter", sans-serif;
   color: #2a2a2a;
+	border-top-left-radius: 16px;
+	border-top-right-radius: 16px;
+	overflow: hidden;
+	border-top: 4px solid rgba(79,70,229,0.85); /* primary accent top border */
 }
 
 .seller-footer {
