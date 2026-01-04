@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { useSearchParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { fetchChatByItemClientSeller, createChat } from '../Slice/chatSlice'
 
 const Chat = ({ userId }) => {
-  const [searchParams] = useSearchParams()
-  const itemId = searchParams.get('itemId')
-  const clientId = searchParams.get('clientId') || userId
-  const sellerId = searchParams.get('sellerId')
+  const { itemId: paramItemId, clientId: paramClientId, sellerId: paramSellerId } = useParams()
+  const itemId = paramItemId
+  const clientId = paramClientId || userId
+  const sellerId = paramSellerId
   const dispatch = useDispatch()
   const navigate = useNavigate()
 

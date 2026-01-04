@@ -49,7 +49,7 @@ const AppWrapper = () => {
               <Route path="/" element={<Shop user={currentUser} userId={userId} />} />
               <Route path="/shop" element={<Shop user={currentUser} userId={userId} />} />
               <Route path="/shop/:id" element={<ShopDetail user={currentUser} userId={userId} />} />
-              <Route path="/chat" element={<Chat user={currentUser} userId={userId} />} />
+              <Route path="/chat/:itemId/:clientId/:sellerId" element={<Chat user={currentUser} userId={userId} />} />
               <Route path="/mychats" element={<MyChats user={currentUser} userId={userId} />} />
               <Route path="/profile" element={<Profile user={currentUser} userId={userId} />} />
             </>

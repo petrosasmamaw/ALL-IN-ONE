@@ -74,13 +74,11 @@ const ShopDetail = ({ userId }) => {
 								<button
 									className="btn chat"
 									onClick={() => {
-										const params = new URLSearchParams({
-											clientId: userId || '',
-											sellerId: seller?.userId || seller?._id || id,
-											itemId: it?._id || it?.id
-										}).toString()
-										navigate(`/chat?${params}`)
-									}}
+											const client = userId || 'guest'
+											const sellerIdVal = seller?.userId || seller?._id || id
+											const itemIdVal = it?._id || it?.id
+											navigate(`/chat/${encodeURIComponent(itemIdVal)}/${encodeURIComponent(client)}/${encodeURIComponent(sellerIdVal)}`)
+										}}
 								>
 									Chat
 								</button>
