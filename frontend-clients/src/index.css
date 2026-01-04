@@ -90,21 +90,20 @@ p { font-size: 1rem; color: var(--text-main); margin: 0 0 10px; }
 }
 
 /* Brand */
-.nav-brand a {
-	text-decoration: none;
-	font-weight: 900;
-	font-size: 1.3rem;
-	letter-spacing: 0.3px;
-	background: linear-gradient(135deg, var(--primary), var(--secondary));
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-}
-
-/* Links */
-.nav-links {
-	display: flex;
-	gap: 22px;
+.nav-btn {
+	display: inline-flex;
 	align-items: center;
+	gap: 8px;
+	padding: 9px 16px;
+	border-radius: 12px;
+	text-decoration: none;
+	color: var(--secondary);
+	border: 1px solid transparent;
+	background: transparent;
+	font-weight: 600;
+	font-size: 0.95rem;
+	transition: all 0.2s ease;
+	cursor: pointer;
 }
 
 /* Actions */
@@ -132,9 +131,20 @@ p { font-size: 1rem; color: var(--text-main); margin: 0 0 10px; }
 }
 
 .nav-btn:hover {
-	color: var(--primary);
+	color: var(--primary-hover);
 	background: var(--input-bg);
 	transform: translateY(-1px);
+}
+
+/* Make plain links in the navbar use blue tones */
+.app-navbar .nav-links a,
+.app-navbar .nav-links .nav-btn {
+	color: var(--secondary);
+}
+
+.app-navbar .nav-links a:hover,
+.app-navbar .nav-links .nav-btn:hover {
+	color: var(--primary-hover);
 }
 
 /* Primary button */
