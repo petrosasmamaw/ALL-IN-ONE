@@ -90,6 +90,20 @@ p { font-size: 1rem; color: var(--text-main); margin: 0 0 10px; }
 }
 
 /* Brand */
+.nav-brand a {
+	text-decoration: none;
+	font-weight: 900;
+	font-size: 1.05rem;
+	letter-spacing: 0.8px;
+	text-transform: uppercase;
+	background: linear-gradient(90deg, var(--primary), var(--secondary));
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	transition: transform 160ms ease, filter 160ms ease;
+}
+.nav-brand a:hover{ transform: translateY(-2px); filter: brightness(1.04); }
+
 .nav-btn {
 	display: inline-flex;
 	align-items: center;
