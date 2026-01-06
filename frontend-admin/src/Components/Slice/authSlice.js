@@ -2,7 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 axios.defaults.withCredentials = true; // send cookies automatically
-const AUTHAPI_URL = "http://localhost:5000/api/auth/";
+const BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/$/, '');
+const AUTHAPI_URL = `${BASE_URL}/api/auth/`;
 
 export const registerUser = createAsyncThunk("auth/registerUser", async (userData) => {
   const response = await axios.post(`${AUTHAPI_URL}register`, userData);
