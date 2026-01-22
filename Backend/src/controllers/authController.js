@@ -26,41 +26,65 @@ export const login = async (req, res) => {
 
   if (error) return res.status(401).json({ error: error.message });
 
-  // Set token in httpOnly cookie
-  res.setHeader('Set-Cookie', cookie.serialize('sb_token', data.session.access_token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    path: '/',
-    maxAge: 60 * 60 * 24 * 7, // 7 days
-  }));
+  // Set tokens in httpOnly cookies
+  const isProduction = process.env.NODE_ENV === 'production';
+  res.setHeader('Set-Cookie', [
+    cookie.serialize('sb_access', data.session.access_token, {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: isProduction ? 'none' : 'lax',
+      path: '/',
+      maxAge: 60 * 60, // 1 hour, but will be refreshed
+    }),
+    cookie.serialize('sb_refresh', data.session.refresh_token, {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: isProduction ? 'none' : 'lax',
+      path: '/',
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+    })
+  ]);
 
   res.json({ message: 'Login successful', user: data.user });
 };
 
 /* LOGOUT */
 export const logout = async (req, res) => {
-  // Clear cookie
-  res.setHeader('Set-Cookie', cookie.serialize('sb_token', '', {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    path: '/',
-    expires: new Date(0),
-  }));
+  const isProduction = process.env.NODE_ENV === 'production';
+  // Clear cookies
+  res.setHeader('Set-Cookie', [
+    cookie.serialize('sb_access', '', {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: isProduction ? 'none' : 'lax',
+      path: '/',
+      expires: new Date(0),
+    }),
+    cookie.serialize('sb_refresh', '', {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: isProduction ? 'none' : 'lax',
+      path: '/',
+      expires: new Date(0),
+    })
+  ]);
   res.json({ message: 'Logged out successfully' });
 };
 
 /* GET ACTIVE SESSION */
 export const getSession = async (req, res) => {
   const cookies = cookie.parse(req.headers.cookie || '');
-  const token = cookies.sb_token;
+  const accessToken = cookies.sb_access;
+  const refreshToken = cookies.sb_refresh;
 
-  if (!token) return res.status(401).json({ error: 'No session' });
+  if (!accessToken || !refreshToken) return res.status(401).json({ error: 'No session' });
 
-  const { data, error } = await supabase.auth.getUser(token);
+  const { data, error } = await supabase.auth.setSession({
+    access_token: accessToken,
+    refresh_token: refreshToken,
+  });
 
-  if (error || !data.user) return res.status(401).json({ error: 'Invalid session' });
+  if (error || !data.session) return res.status(401).json({ error: 'Invalid session' });
 
   res.json({ user: data.user });
 };
